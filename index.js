@@ -35,11 +35,19 @@ app.get("/app-review/:appId", function (req, res) {
     .then((data) => res.end(JSON.stringify(data)));
 });
 
-// Get inital 100 app Reviews
+// Get max 1000 app Reviews
 app.get("/app-review/all/:appId", function (req, res) {
   var gplay = require("google-play-scraper");
   gplay
     .reviews({ appId: req.params.appId, sort: gplay.sort.RATING, num: 1000 })
+    .then((data) => res.end(JSON.stringify(data)));
+});
+
+// Get similar apps based on appId
+app.get("/similar-app/:appId", function (req, res) {
+  var gplay = require("google-play-scraper");
+  gplay
+    .similar({ appId: req.params.appId })
     .then((data) => res.end(JSON.stringify(data)));
 });
 
