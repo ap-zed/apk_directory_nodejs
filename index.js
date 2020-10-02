@@ -31,7 +31,7 @@ app.get("/app-detail/:appId", function (req, res) {
 app.get("/app-review/:appId", function (req, res) {
   var gplay = require("google-play-scraper");
   gplay
-    .reviews({ appId: req.params.appId, sort: gplay.sort.RATING, num: 100 })
+    .reviews({ appId: req.params.appId, sort: gplay.sort.RATING, num: 50 })
     .then((data) => res.end(JSON.stringify(data)));
 });
 
