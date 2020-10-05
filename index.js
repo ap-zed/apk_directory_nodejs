@@ -4,7 +4,10 @@ var app = express();
 // Get All Category
 app.get("/category", function (req, res) {
   var gplay = require("google-play-scraper");
-  const data = gplay.categories().then((data) => res.end(JSON.stringify(data)));
+  const data = gplay
+    .categories()
+    .then((data) => res.end(JSON.stringify(data)))
+    .catch((err) => res.end(JSON.stringify({})));
 });
 
 // Get all apps by Category and the collection type
@@ -16,7 +19,10 @@ app.get("/apps/:categoryCode/:collection", function (req, res) {
       collection: req.params.collection,
       num: 500,
     })
-    .then((data) => res.end(JSON.stringify(data)));
+    .then((data) => {
+      res.end(JSON.stringify(data));
+    })
+    .catch((err) => res.end(JSON.stringify({})));
 });
 
 // Get app Details
@@ -24,7 +30,8 @@ app.get("/app-detail/:appId", function (req, res) {
   var gplay = require("google-play-scraper");
   gplay
     .app({ appId: req.params.appId })
-    .then((data) => res.end(JSON.stringify(data)));
+    .then((data) => res.end(JSON.stringify(data)))
+    .catch((err) => res.end(JSON.stringify({})));
 });
 
 // Get inital 100 app Reviews
@@ -32,7 +39,8 @@ app.get("/app-review/:appId", function (req, res) {
   var gplay = require("google-play-scraper");
   gplay
     .reviews({ appId: req.params.appId, sort: gplay.sort.RATING, num: 50 })
-    .then((data) => res.end(JSON.stringify(data)));
+    .then((data) => res.end(JSON.stringify(data)))
+    .catch((err) => res.end(JSON.stringify({})));
 });
 
 // Get max 1000 app Reviews
@@ -40,7 +48,8 @@ app.get("/app-review/all/:appId", function (req, res) {
   var gplay = require("google-play-scraper");
   gplay
     .reviews({ appId: req.params.appId, sort: gplay.sort.RATING, num: 1000 })
-    .then((data) => res.end(JSON.stringify(data)));
+    .then((data) => res.end(JSON.stringify(data)))
+    .catch((err) => res.end(JSON.stringify({})));
 });
 
 // Get similar apps based on appId
@@ -48,7 +57,8 @@ app.get("/similar-app/:appId", function (req, res) {
   var gplay = require("google-play-scraper");
   gplay
     .similar({ appId: req.params.appId })
-    .then((data) => res.end(JSON.stringify(data)));
+    .then((data) => res.end(JSON.stringify(data)))
+    .catch((err) => res.end(JSON.stringify({})));
 });
 
 // Server
